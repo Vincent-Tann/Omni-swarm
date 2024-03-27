@@ -58,9 +58,9 @@ docker start -i omni
 
 `catkin_make --pkg inf_uwb_ros -j1`
 
--j1是用单线程编译，不知道为什么在容器里默认的单线程会导致程序被kill。
+-j1是用单线程编译，不知道为什么在容器里直接catkin_make，默认的多线程会导致程序被kill。
 
-接着编译VINS-Fisheye里的vins包：
+接着编译VINS-Fisheye里的vins包（文件夹名称是vins_estimator）：
 
 `catkin_make --pkg vins -j1`
 
