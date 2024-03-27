@@ -68,6 +68,10 @@ docker start -i omni
 
 `catkin_make --pkg swarm_loop -j1`
 
+接着编译该repo下的另外两个包：
+
+`catkin_make --pkg localization_proxy swarm_localization -j1`
+
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
 Start map-based localization with
