@@ -28,8 +28,45 @@ The Omni-swarm offical support TX2 with Ubuntu 18.04. For those running on other
 
 [Here](https://www.dropbox.com/sh/w5yagas06a9r14d/AACdKgMfCCg07M6jr6Ipmus1a?dl=0) to get the raw and preprocessed offical omni-directional and pinole dataset.
 
-[swarm_msgs](https://github.com/HKUST-Swarm/swarm_msgs) [inf_uwb_ros](https://github.com/HKUST-Swarm/inf_uwb_ros) are compulsory.
-And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want to use detector, 
+[swarm_msgs](https://github.com/HKUST-Swarm/swarm_msgs) and [inf_uwb_ros](https://github.com/HKUST-Swarm/inf_uwb_ros) are compulsory.
+And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want to use detector.
+
+这里原版README省略了很多很多细节，导致配环境要摸索很久。
+
+具体操作起来步骤如下：
+
+首先把作者提供的docker image下载下来（一定不要漏了pc这个tag，否则会下载latest，不是最终版本）:
+
+`docker pull xuhao1/swarm2020:pc`
+
+构建容器并启动：
+
+```zsh
+docker run --name omni xuhao1/swarm2020:pc
+docker start -i omni
+```
+
+进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个repo。
+
+除此之外，还要git clone下面提到的[VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) 和[FEUL](https://github.com/HKUST-Aerial-Robotics/FUEL)(需要用里面的bspline这个package，这个自己找真的头疼）。
+
+打开`bspline/msg/Bspline.msg`，在第一行添加：
+
+`int32 drone_id`
+
+然后开始编译，直接`catkin_make`会报错一些包找不到。我们手动一个个编译。首先：
+
+`catkin_make --pkg inf_uwb_ros -j1`
+
+-j1是用单线程编译，不知道为什么在容器里默认的单线程会导致程序被kill。
+
+接着编译VINS-Fisheye里的vins包：
+
+`catkin_make --pkg vins -j1`
+
+然后再编译swarm_loop包才不会报错：
+
+`catkin_make --pkg swarm_loop -j1`
 
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
