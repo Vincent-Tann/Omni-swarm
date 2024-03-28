@@ -42,8 +42,11 @@ And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want 
 构建容器并启动：
 
 ```zsh
-docker run --name omni xuhao1/swarm2020:pc
-docker start -i omni
+docker run -it --name omni xuhao1/swarm2020:pc
+exit
+docker start -i omni #启动容器，并在container中打开终端
+# 如果需要额外的终端：
+docker exec -i omni /bin/zsh
 ```
 
 进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个repo。
