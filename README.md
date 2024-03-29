@@ -42,7 +42,7 @@ And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want 
 构建容器并启动：
 
 ```zsh
-docker run -it --name omni xuhao1/swarm2020:pc
+docker run -it --name omni xuhao1/swarm2020:pc zsh #最后的COMMAND参数一定要设置，zsh等同于/bin/zsh
 exit
 docker start -i omni #启动容器，并在container中打开终端
 # 如果需要额外的终端：
