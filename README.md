@@ -96,6 +96,14 @@ catkin_make --pkg swarm_loop -j1
 catkin_make --pkg localization_proxy swarm_localization -j1
 ```
 
+接下来把下载的数据集（上面给了链接）在本地解压后用`docker cp`复制到容器内的`bags`文件夹：
+
+```zsh
+docker cp ~.Downloads/swarm_raw_parallel_noyaw_2021-11-12 omni:/root/bags/
+docker cp ~.Downloads/swarm_raw_parallel_yaw_2021-11-16 omni:/root/bags/
+docker cp ~.Downloads/random_fly omni:/root/bags/
+```
+
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
 Start map-based localization with
