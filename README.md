@@ -18,15 +18,36 @@ And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want 
 docker pull xuhao1/swarm2020:pc
 ```
 
+因为要在container中使用rviz的可视化工具，因此需要设置允许其访问本地X服务器的图形界面：
+
+```zsh
+xhost +local:root #设置所有root用户（包括container中的root用户）可以访问X服务器
+# 也有教程写的是 'xhost +'，也就是允许所有用户访问
+```
+
 构建容器并启动：
 
 ```zsh
-docker run -it --name omni xuhao1/swarm2020:pc zsh #最后的COMMAND参数一定要设置，zsh等同于/bin/zsh
+docker run -it --rm \
+       --env="DISPLAY=$DISPLAY" \ 
+       --env="QT_X11_NO_MITSHM=1" \
+       --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+       --name="omni" \ #给容器起个名字
+       xuhao1/swarm2020:pc \
+       zsh #最后的COMMAND参数一定要设置，zsh等同于/bin/zsh
 exit
-docker start -i omni #启动容器，并在container中打开终端
+# 再次使用时：启动容器，并在container中打开终端
+docker start -i omni 
 # 如果需要额外的终端：
-docker exec -i omni /bin/zsh
+docker exec -it omni /bin/zsh
 ```
+
+docker run指令的选项说明：
+- `--env="DISPLAY=$DISPLAY"`: `设置环境变量-显示器编号
+- `--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"`: 挂载和X服务器相关的目录
+- `--name="omni"`: 给容器起个名字
+
+
 
 进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个（三个）repo。
 
