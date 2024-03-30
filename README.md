@@ -37,7 +37,9 @@ And [swarm_detector](https://github.com/HKUST-Swarm/swarm_detector) if you want 
 
 首先把作者提供的docker image下载下来（一定不要漏了pc这个tag，否则会下载latest，不是最终版本）:
 
-`docker pull xuhao1/swarm2020:pc`
+```zsh
+docker pull xuhao1/swarm2020:pc
+```
 
 构建容器并启动：
 
@@ -72,7 +74,7 @@ sudo apt install ros-melodic-nlopt
 catkin_make --pkg inf_uwb_ros -j1
 ```
 
--j1是用单线程编译，不知道为什么在容器里直接catkin_make，默认的多线程会导致程序被kill。
+`-j1`是用单线程编译，不知道为什么在容器里直接catkin_make，默认的多线程会导致程序可能被kill。本人在ubuntu上用docker desktop的时候只有-j1可行。后来卸载docker desktop，并用命令行安装了docker，就可以多线程了（建议在ubuntu下不要用docker desktop，还容易在打开的时候卡在"Starting the Docker Engine"）。
 
 编译的时候可以先不加`-j1`，如果出现类似`program killed`的报错再加上。毕竟多线程快。
 
