@@ -1,26 +1,3 @@
-# Omni-swarm
-A Decentralized Omnidirectional Visual-Inertial-UWB State Estimation System for Aerial Swarm
-![](./doc/gcs.png)
-## Introduction
-
-**Omni-swarm** is a decentralized omnidirectional visual-inertial-UWB state estimation system for the aerial swarm.
-In order to solve the issues of observability, complicated initialization, insufficient accuracy and lack of global consistency, we introduce an omnidirectional perception system as the front-end of the **Omni-swarm**, consisting of omnidirectional sensors, which includes stereo fisheye cameras and ultra-wideband (UWB) sensors, and algorithms, which includes fisheye visual inertial odometry (VIO), multi-drone map-based localization and visual object detection.
-A graph-based optimization and forward propagation working as the back-end of the **Omni-swarm** to fuse the measurements from the front-end.
-According to the experiment result, the proposed decentralized state estimation method on the swarm system achieves centimeter-level relative state estimation accuracy while ensuring global consistency. Moreover, supported by the **Omni-swarm**, inter-drone collision avoidance can be accomplished in a whole decentralized scheme without any external device, demonstrating the potential of **Omni-swarm** to be the foundation of autonomous aerial swarm flights in different scenarios.
-       
-The is the code for __Omni-swarm: A Decentralized Omnidirectional Visual-Inertial-UWB State Estimation System for Aerial Swarms__. The manuscript has been accepted by IEEE Transactions on Robotics (T-RO), a preprint version is [here](https://arxiv.org/abs/2103.04131).
-
-
-
-The structure of Omni-swarm is
-![](./doc/structure.PNG)
-
-The fused measurements of Omni-swarm:
-![](./doc/measurements.PNG)
-
-The detailed backend structure of state estimation of Omni-swarm:
-![](./doc/backend.PNG)
-
 ## Usage
 The Omni-swarm offical support TX2 with Ubuntu 18.04. For those running on other hardware and system setup, converting the models to trt by your own is essential.
 
@@ -99,9 +76,9 @@ catkin_make --pkg localization_proxy swarm_localization -j1
 接下来把下载的数据集（上面给了链接）在本地解压后用`docker cp`复制到容器内的`bags`文件夹：
 
 ```zsh
-docker cp ~.Downloads/swarm_raw_parallel_noyaw_2021-11-12 omni:/root/bags/
-docker cp ~.Downloads/swarm_raw_parallel_yaw_2021-11-16 omni:/root/bags/
-docker cp ~.Downloads/random_fly omni:/root/bags/
+docker cp ~/Downloads/swarm_raw_parallel_noyaw_2021-11-12 omni:/root/bags/
+docker cp ~/Downloads/swarm_raw_parallel_yaw_2021-11-16 omni:/root/bags/
+docker cp ~/Downloads/random_fly omni:/root/bags/
 ```
 
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
@@ -142,3 +119,26 @@ To evaluate the program, a recommended way is by using a docker. We provide a ru
 Due to the limitation of the TensorRT engine adopted in the frontend to accelerate the CNNs, the docker is restricted to running with an RTX 3080 or similar graphic card. We are working on migrating an onnxruntime version of frontend for CNNs referencing and a buildable docker file, which will be released very soon.
 ## LICENSE
 GPLV3
+
+# Omni-swarm
+A Decentralized Omnidirectional Visual-Inertial-UWB State Estimation System for Aerial Swarm
+![](./doc/gcs.png)
+## Introduction
+
+**Omni-swarm** is a decentralized omnidirectional visual-inertial-UWB state estimation system for the aerial swarm.
+In order to solve the issues of observability, complicated initialization, insufficient accuracy and lack of global consistency, we introduce an omnidirectional perception system as the front-end of the **Omni-swarm**, consisting of omnidirectional sensors, which includes stereo fisheye cameras and ultra-wideband (UWB) sensors, and algorithms, which includes fisheye visual inertial odometry (VIO), multi-drone map-based localization and visual object detection.
+A graph-based optimization and forward propagation working as the back-end of the **Omni-swarm** to fuse the measurements from the front-end.
+According to the experiment result, the proposed decentralized state estimation method on the swarm system achieves centimeter-level relative state estimation accuracy while ensuring global consistency. Moreover, supported by the **Omni-swarm**, inter-drone collision avoidance can be accomplished in a whole decentralized scheme without any external device, demonstrating the potential of **Omni-swarm** to be the foundation of autonomous aerial swarm flights in different scenarios.
+       
+The is the code for __Omni-swarm: A Decentralized Omnidirectional Visual-Inertial-UWB State Estimation System for Aerial Swarms__. The manuscript has been accepted by IEEE Transactions on Robotics (T-RO), a preprint version is [here](https://arxiv.org/abs/2103.04131).
+
+
+
+The structure of Omni-swarm is
+![](./doc/structure.PNG)
+
+The fused measurements of Omni-swarm:
+![](./doc/measurements.PNG)
+
+The detailed backend structure of state estimation of Omni-swarm:
+![](./doc/backend.PNG)
