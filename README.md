@@ -94,10 +94,10 @@ catkin_make --pkg vins -j1
 catkin_make --pkg swarm_loop -j1
 ```
 
-接着编译该repo下的另外两个包：
+接着编译该repo下的另外两个包以及sync_bag_player：
 
 ```
-catkin_make --pkg localization_proxy swarm_localization -j1
+catkin_make --pkg localization_proxy swarm_localization sync_bag_player -j1
 ```
 
 接下来把下载的数据集（上面给了链接）在本地解压后用`docker cp`复制到容器内的`bags`文件夹：
