@@ -84,7 +84,8 @@ catkin_make --pkg vins -j1
 
 然后再编译swarm_loop包才不会报错：
 
-```catkin_make --pkg swarm_loop -j1
+```
+catkin_make --pkg swarm_loop -j1
 ```
 
 接着编译该repo下的另外两个包：
