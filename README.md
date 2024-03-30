@@ -29,10 +29,12 @@ xhost +local:root #设置所有root用户（包括container中的root用户）�
 
 ```zsh
 docker run -it --rm \
-       --env="DISPLAY=$DISPLAY" \ 
+       --net=host \
+       --env="DISPLAY=$DISPLAY" \
        --env="QT_X11_NO_MITSHM=1" \
        --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-       --name="omni" \ #给容器起个名字
+       --volume="$HOME/.Xauthority:/root/.Xauthority:rw" \
+       --name="omni" \
        xuhao1/swarm2020:pc \
        zsh #最后的COMMAND参数一定要设置，zsh等同于/bin/zsh
 exit
