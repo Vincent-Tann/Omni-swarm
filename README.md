@@ -68,7 +68,9 @@ sudo apt install ros-melodic-nlopt
 
 然后开始编译，直接`catkin_make`会报错一些包找不到。我们手动一个个编译。首先：
 
-`catkin_make --pkg inf_uwb_ros -j1`
+```
+catkin_make --pkg inf_uwb_ros -j1
+```
 
 -j1是用单线程编译，不知道为什么在容器里直接catkin_make，默认的多线程会导致程序被kill。
 
@@ -76,15 +78,20 @@ sudo apt install ros-melodic-nlopt
 
 接着编译VINS-Fisheye里的vins包（文件夹名称是vins_estimator）：
 
-`catkin_make --pkg vins -j1`
+```
+catkin_make --pkg vins -j1
+```
 
 然后再编译swarm_loop包才不会报错：
 
-`catkin_make --pkg swarm_loop -j1`
+```catkin_make --pkg swarm_loop -j1
+```
 
 接着编译该repo下的另外两个包：
 
-`catkin_make --pkg localization_proxy swarm_localization -j1`
+```
+catkin_make --pkg localization_proxy swarm_localization -j1
+```
 
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
