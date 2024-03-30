@@ -49,11 +49,13 @@ docker start -i omni #启动容器，并在container中打开终端
 docker exec -i omni /bin/zsh
 ```
 
-进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个repo。
+进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个（三个）repo。
 
-除此之外，还要git clone下面提到的[VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) 和[FEUL](https://github.com/HKUST-Aerial-Robotics/FUEL)(需要用里面的bspline这个package，这个自己找真的头疼）。
+下载上面提到的models.zip并解压到swarm_loop文件夹下。
 
-打开`bspline/msg/Bspline.msg`，在第一行添加：
+除此之外，还要git clone下面提到的[VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) 和[FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL)(需要用里面的bspline这个package，这个自己找真的头疼）。
+
+打开`FUEL/fuel_planner/bspline/msg/Bspline.msg`，在第一行添加：
 
 `int32 drone_id`
 
