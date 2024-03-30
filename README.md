@@ -28,10 +28,14 @@ xhost +local:root #设置所有root用户（包括container中的root用户）�
 构建容器并启动：
 
 ```zsh
-docker run -it --rm \
+docker run -it \
        --net=host \
+       --gpus all \
+       --runtime nvidia \
        --env="DISPLAY=$DISPLAY" \
        --env="QT_X11_NO_MITSHM=1" \
+       --env="NVIDIA_VISIBLE_DEVICES=all" \
+       --env="NVIDIA_DRIVER_CAPABILITIES=all" \
        --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
        --volume="$HOME/.Xauthority:/root/.Xauthority:rw" \
        --name="omni" \
@@ -55,9 +59,9 @@ docker run指令的选项说明：
 
 下载上面提到的models.zip并解压到swarm_loop文件夹下。
 
-除此之外，还要git clone下面提到的[VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) 和[FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL)(需要用里面的bspline这个package，这个自己找真的头疼）。
+除此之外，还要git clone下面提到的[VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) ,以及[FUEL](https://github.com/HKUST-Aerial-Robotics/FUEL)(需要用里面的bspline这个package，这个自己找真的头疼），以及和ros bag相关的[sync_bag_player](https://github.com/HKUST-Swarm/sync_bag_player.git)。
 
-打开`FUEL/fuel_planner/bspline/msg/Bspline.msg`，在第一行添加：
+下载好所需要的库之后，打开`FUEL/fuel_planner/bspline/msg/Bspline.msg`，在第一行添加：
 
 `int32 drone_id`
 
