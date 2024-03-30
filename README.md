@@ -59,11 +59,20 @@ docker exec -i omni /bin/zsh
 
 `int32 drone_id`
 
+此外还要额外安装一个ROS包：
+
+```zsh
+sudo apt update
+sudo apt install ros-melodic-nlopt
+```
+
 然后开始编译，直接`catkin_make`会报错一些包找不到。我们手动一个个编译。首先：
 
 `catkin_make --pkg inf_uwb_ros -j1`
 
 -j1是用单线程编译，不知道为什么在容器里直接catkin_make，默认的多线程会导致程序被kill。
+
+编译的时候可以先不加`-j1`，如果出现类似`program killed`的报错再加上。毕竟多线程快。
 
 接着编译VINS-Fisheye里的vins包（文件夹名称是vins_estimator）：
 
