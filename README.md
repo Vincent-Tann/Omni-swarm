@@ -23,6 +23,7 @@ docker pull xuhao1/swarm2020:pc
 ```zsh
 xhost +local:root #设置所有root用户（包括container中的root用户）可以访问X服务器
 # 也有教程写的是 'xhost +'，也就是允许所有用户访问
+# [注意！！] 每次重新运行前要再执行一遍。改动仅在当次有效。
 ```
 
 构建容器并启动：
