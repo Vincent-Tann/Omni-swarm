@@ -83,7 +83,7 @@ catkin_make --pkg inf_uwb_ros -j1
 
 编译的时候可以先不加`-j1`，如果出现类似`program killed`的报错再加上。毕竟多线程快。
 
-接着编译VINS-Fisheye里的vins包（文件夹名称是vins_estimator）：
+接着按[这里的说明](https://github.com/Vincent-Tann/VINS-Fisheye/tree/master)配置VIN-Fisheye的OpenCV环境，再编译其中的vins包（文件夹名称是vins_estimator）：
 
 ```
 catkin_make --pkg vins -j1
