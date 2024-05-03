@@ -111,6 +111,9 @@ docker cp ~/Downloads/random_fly omni:/root/bags/
 
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
+具体做法是(需要先roscore和rosrun nodelet nodelet manager __name:=swarm_manager，或者加到launch文件里）：
+>roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/config/fisheye_ptgrey_n3/fisheye_cuda.yaml
+
 Start map-based localization with
 >roslaunch swarm_loop nodelet-sfisheye.launch
 
