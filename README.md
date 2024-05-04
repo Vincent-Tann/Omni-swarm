@@ -122,6 +122,16 @@ First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.c
 具体做法是(需要先roscore和rosrun nodelet nodelet manager __name:=swarm_manager，或者加到launch文件里）：
 
 ```zsh
+roscore
+```
+
+```zsh
+rosrun nodelet nodelet manager __name:=swarm_manager
+```
+
+接着：
+
+```zsh
 roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/config/fisheye_ptgrey_n3/fisheye_cuda.yaml
 # /root/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml中提供了不同的vins配置，且这个配置在下面的nodelet-sfisheye.launch中被使用。
 # 如果为了保持统一性，Vins Fisheye应该也使用这个配置，则指令改为
