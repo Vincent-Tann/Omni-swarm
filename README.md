@@ -1,4 +1,7 @@
 ## Usage
+
+### Docker配置和Repo下载
+
 The Omni-swarm offical support TX2 with Ubuntu 18.04. For those running on other hardware and system setup, converting the models to trt by your own is essential.
 
 [Here](https://www.dropbox.com/s/skq1vgfeawiw151/models.zip?dl=0) to download the CNN models for Omni-swarm and extract it to swarm_loop folder.
@@ -55,7 +58,6 @@ docker run指令的选项说明：
 - `--name="omni"`: 给容器起个名字
 
 
-
 进入容器的`~/swarm_ws`，删除所有文件并新建src文件夹在src文件夹下git clone本repo，以及上面作者提到的两个（三个）repo。
 
 下载上面提到的models.zip并解压到swarm_loop文件夹下。
@@ -73,7 +75,9 @@ sudo apt update
 sudo apt install ros-melodic-nlopt
 ```
 
-然后开始编译，直接`catkin_make`会报错一些包找不到。我们手动一个个编译。首先：
+### 编译
+
+接着开始编译，直接`catkin_make`会报错一些包找不到。我们手动一个个编译。首先：
 
 ```
 catkin_make --pkg inf_uwb_ros -j1
@@ -83,7 +87,7 @@ catkin_make --pkg inf_uwb_ros -j1
 
 编译的时候可以先不加`-j1`，如果出现类似`program killed`的报错再加上。毕竟多线程快。
 
-接着按[这里的说明](https://github.com/Vincent-Tann/VINS-Fisheye/tree/master)配置VIN-Fisheye的OpenCV环境，再编译其中的vins包（文件夹名称是vins_estimator）：
+接着按[我Fork的Vins-Fisheye中的说明](https://github.com/Vincent-Tann/VINS-Fisheye/tree/master)配置VIN-Fisheye的OpenCV环境，再编译其中的vins包（文件夹名称是vins_estimator）：
 
 ```
 catkin_make --pkg vins -j1
@@ -101,13 +105,17 @@ catkin_make --pkg swarm_loop -j1
 catkin_make --pkg localization_proxy swarm_localization sync_bag_player -j1
 ```
 
-接下来把下载的数据集（上面给了链接）在本地解压后用`docker cp`复制到容器内的`bags`文件夹：
+### 数据集下载
+
+接下来把下载的数据集（上面给了链接）在本地解压后用`docker cp`复制到容器内的`bags`文件夹：[Here](https://www.dropbox.com/sh/w5yagas06a9r14d/AACdKgMfCCg07M6jr6Ipmus1a?dl=0) to get the raw and preprocessed offical omni-directional and pinole dataset.
 
 ```zsh
 docker cp ~/Downloads/swarm_raw_parallel_noyaw_2021-11-12 omni:/root/bags/
 docker cp ~/Downloads/swarm_raw_parallel_yaw_2021-11-16 omni:/root/bags/
 docker cp ~/Downloads/random_fly omni:/root/bags/
 ```
+
+### 项目运行
 
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
@@ -120,7 +128,7 @@ roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/confi
 roslaunch vins fisheye.launch config_file:=/root/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml
 ```
 
-Start map-based localization with
+Start map-based localization with（要先把nodelet-sfisheye.launch文件里第8、9行路径中的/home/dji改为/root;50行开始的tx2相关模型名称改为rtx3080的：superpoint_v1_tx2_fp16.trt改为superpoint_v1_rtx3080_fp16.trt，mobilenetvlad_208x400_tx2_fp16.trt改为mobilenetvlad_208x400_rtx3080_fp16.trt。3060显卡也跑通了）
 
 ```
 roslaunch swarm_loop nodelet-sfisheye.launch
