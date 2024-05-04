@@ -153,7 +153,7 @@ roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true enable_uwb:=fa
 Start state estimation with visualizer by
 
 ```
-roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/home/your-name/output/graph.dot
+roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/root/output/graph.dot
 ```
 
 You may enable/disable specific measurement by adding
