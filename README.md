@@ -112,32 +112,55 @@ docker cp ~/Downloads/random_fly omni:/root/bags/
 First, running the pinhole or fisheye version of [VINS-Fisheye](https://github.com/HKUST-Aerial-Robotics/VINS-Fisheye) (Yes, VINS-Fisheye is pinhole compatiable and is essential for Omni-swarm).
 
 具体做法是(需要先roscore和rosrun nodelet nodelet manager __name:=swarm_manager，或者加到launch文件里）：
->roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/config/fisheye_ptgrey_n3/fisheye_cuda.yaml
+
+```zsh
+roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/config/fisheye_ptgrey_n3/fisheye_cuda.yaml
+# /root/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml中提供了不同的vins配置，且这个配置在下面的nodelet-sfisheye.launch中被使用。
+# 如果为了保持统一性，Vins Fisheye应该也使用这个配置，则指令改为
+roslaunch vins fisheye.launch config_file:=/root/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml
+```
 
 Start map-based localization with
->roslaunch swarm_loop nodelet-sfisheye.launch
+
+```
+roslaunch swarm_loop nodelet-sfisheye.launch
+```
 
 or pinhole version
 
->roslaunch swarm_loop realsense.launch
+```
+roslaunch swarm_loop realsense.launch
+```
 
 Start visual object detector by (not compulsory)
-> roslaunch  swarm_detector detector.launch
+
+```
+roslaunch  swarm_detector detector.launch
+```
 
 Start UWB communication module with (Support NoopLoop UWB module only)
 
->roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true
+```
+roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true
+```
 
 If you don't have a UWB module, you may start the communication with a self id(start from 1, different on each drone)
->roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true enable_uwb:=false self_id:=1
 
+```
+roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true enable_uwb:=false self_id:=1
+```
 
 Start state estimation with visualizer by
 
->roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/home/your-name/output/graph.dot
+```
+roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/home/your-name/output/graph.dot
+```
 
 You may enable/disable specific measurement by adding
->enable_distance:=false or enable_detection:=false enable_loop:=true
+
+```
+enable_distance:=false or enable_detection:=false enable_loop:=true
+```
 
 To visualize the real-time estimation result, use __viz:=true__. 
 Add __bag_replay:=true__ only when evaluation dataset, when evaluate pre-processed dataset, you may only launch __loop-5-drone.launch__
