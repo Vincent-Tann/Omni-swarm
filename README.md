@@ -162,6 +162,8 @@ Start state estimation with visualizer by
 
 ```
 roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/root/output/graph.dot
+# 在电脑上跑，用这个：
+roslaunch swarm_localization loop-5-pc.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/root/output/graph.dot self_id:=1
 ```
 
 You may enable/disable specific measurement by adding
