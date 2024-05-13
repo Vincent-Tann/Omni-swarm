@@ -145,6 +145,12 @@ Start map-based localization with（要先把nodelet-sfisheye.launch文件里第
 roslaunch swarm_loop nodelet-sfisheye.launch
 ```
 
+node版本，不用nodelet：
+
+```
+roslaunch swarm_loop node-sfisheye-txs.launch
+```
+
 or pinhole version
 
 ```
