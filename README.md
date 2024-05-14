@@ -175,6 +175,12 @@ Start UWB communication module with (Support NoopLoop UWB module only)
 roslaunch localization_proxy uwb_comm.launch start_uwb_node:=true
 ```
 
+用这个！：
+
+```
+roslaunch localization_proxy uwb_comm.launch start_uwb_node:=false self_id:=1
+```
+
 If you don't have a UWB module, you may start the communication with a self id(start from 1, different on each drone)
 
 ```
@@ -188,6 +194,13 @@ roslaunch swarm_localization loop-5-drone.launch bag_replay:=true viz:=true enab
 # 在电脑上跑，用这个：
 roslaunch swarm_localization loop-5-pc.launch bag_replay:=true viz:=true enable_distance:=false cgraph_path:=/root/output/graph.dot self_id:=1
 ```
+
+用这个！：
+
+```
+roslaunch swarm_localization loop-5-drone.launch enable_distance:=false enable_detection:=false cgraph_path:=/root/output/graph.dot viz:=false
+```
+
 
 You may enable/disable specific measurement by adding
 
