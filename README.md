@@ -198,7 +198,7 @@ roslaunch swarm_localization loop-5-pc.launch bag_replay:=true viz:=true enable_
 用这个！：
 
 ```
-roslaunch swarm_localization loop-5-drone.launch enable_distance:=false enable_detection:=false cgraph_path:=/root/output/graph.dot viz:=false
+roslaunch swarm_localization loop-5-drone.launch enable_distance:=false enable_detection:=false cgraph_path:=/root/output/graph.dot viz:=false self_id:=1
 ```
 
 
