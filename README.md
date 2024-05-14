@@ -139,6 +139,12 @@ roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/VINS-Fisheye/confi
 roslaunch vins fisheye.launch config_file:=/root/swarm_ws/src/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml
 ```
 
+node版本，不用nodelet:
+
+```
+roslaunch vins fisheye_node.launch config_file:=/root/swarm_ws/src/SwarmConfig/fisheye_ptgrey_n3/fisheye_cuda.yaml
+```
+
 Start map-based localization with（要先把nodelet-sfisheye.launch文件里第8、9行路径中的/home/dji改为/root;50行开始的tx2相关模型名称改为rtx3080的：superpoint_v1_tx2_fp16.trt改为superpoint_v1_rtx3080_fp16.trt，mobilenetvlad_208x400_tx2_fp16.trt改为mobilenetvlad_208x400_rtx3080_fp16.trt。3060显卡也跑通了）
 
 ```
